@@ -51,9 +51,11 @@
     "extend": "^3.0.2",
     "inquirer": "^7.3.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^26.3.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
