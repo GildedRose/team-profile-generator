@@ -1,4 +1,5 @@
 const inquirer = require ('inquirer');
+const { prompts } = require('inquirer');
 //const generateHTML = require('./dist/team.html')
 //const { writeFile } = require('./src/generateSite.js')
 
@@ -70,136 +71,159 @@ const inquirer = require ('inquirer');
     const createTeam = () => {
         return inquirer.prompt([
             {
-                type: 'checkbox',
-                name: 'role',
-                message: "What kind of employee would you like to add?",
-                choices: ['Engineer', 'Intern'],
-                validate: roleInput => {
-                    if (roleInput){
-                        return true;
+                type: "checkbox",
+                name: "newEmployee",
+                message: "Would you like to add a new employee?",
+                choices: ['Yes', 'No'],
+                validate: newEmployeeInput => {
+                    if (newEmployeeInput) {
+                        return true
                     } else {
-                    console.log('Please select a role.');
-                    return false;
+                        console.log("Please choose yes or no.")
                     }
                 }
             },
         ])
-        .then(function (responses){
-            if (responses.role == 'Engineer'){
-                return inquirer.prompt([
-                    {
-                        type: "input",
-                        name: "engineerName",
-                        message:"What is the engineer's name?",
-                        validate: engineerNameInput => {
-                            if (engineerNameInput){
-                                return true;
-                            } else {
-                                console.log("Please enter the engineer's name")
-                            }
-                        }
-                    },
-                    {
-                        type: "input",
-                        name: "engineerId",
-                        message: "What is the engineer's employee ID?",
-                        validate: engineerIdInput => {
-                            if (isNaN(engineerIdInput)){
-                                console.log("Please enter a valid number");
-                            } else {
-                                return true;
-                            }
-                        }
-                    },
-                    {
-                        type: "input",
-                        name: "engineerEmail",
-                        message: "What is the engineer's email address?",
-                        validate: function (engineerEmailInput) {
-            
-                                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(engineerEmailInput)
-            
-                            if (valid) {
-                                return true;
-                            } else {
-                                console.log("Please enter a valid email.")
+            .then(function (responses){
+                if (responses.newEmployee == 'Yes'){
+                    return inquirer.prompt([
+                        {
+                            type: 'checkbox',
+                            name: 'role',
+                            message: "What kind of employee would you like to add?",
+                            choices: ['Engineer', 'Intern'],
+                            validate: roleInput => {
+                                if (roleInput){
+                                    return true;
+                                } else {
+                                console.log('Please select a role.');
                                 return false;
+                                }
                             }
-                        }
-                    },
-                    {
-                        type: "input",
-                        name: "engineerGitHub",
-                        message: "What is the employee's GitHub username?",
-                        validate: engineerGitHubInput => {
-                            if (engineerGitHubInput){
-                                return true;
-                            } else {
-                                console.log("Please enter GitHub username")
-                                return false;
+                        },
+                    ])    
+                } else  {
+                    console.log("Goodbye");
+                    return false;
+                }
+            })
+            .then(function (responses){
+                if (responses.role == 'Engineer'){
+                    return inquirer.prompt([
+                        {
+                            type: "input",
+                            name: "engineerName",
+                            message:"What is the engineer's name?",
+                            validate: engineerNameInput => {
+                                if (engineerNameInput){
+                                    return true;
+                                } else {
+                                    console.log("Please enter the engineer's name")
+                                }
                             }
-                        }
-                    },
-                ])
-            }
-            else if (responses.role == 'Intern'){
-                return inquirer.prompt([
-                    {
-                        type: "input",
-                        name: "internName",
-                        message:"What is the intern's name?",
-                        validate: internNameInput => {
-                            if (internNameInput){
-                                return true;
-                            } else {
-                                console.log("Please enter the intern's name")
+                        },
+                        {
+                            type: "input",
+                            name: "engineerId",
+                            message: "What is the engineer's employee ID?",
+                            validate: engineerIdInput => {
+                                if (isNaN(engineerIdInput)){
+                                    console.log("Please enter a valid number");
+                                } else {
+                                    return true;
+                                }
                             }
-                        }
-                    },
-                    {
-                        type: "input",
-                        name: "internId",
-                        message: "What is the intern's employee ID?",
-                        validate: internIdInput => {
-                            if (isNaN(internIdInput)){
-                                console.log("Please enter a valid number");
-                            } else {
-                                return true;
+                        },
+                        {
+                            type: "input",
+                            name: "engineerEmail",
+                            message: "What is the engineer's email address?",
+                            validate: function (engineerEmailInput) {
+                
+                                    valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(engineerEmailInput)
+                
+                                if (valid) {
+                                    return true;
+                                } else {
+                                    console.log("Please enter a valid email.")
+                                    return false;
+                                }
                             }
-                        }
-                    },
-                    {
-                        type: "input",
-                        name: "internEmail",
-                        message: "What is the intern's email address?",
-                        validate: function (internEmailInput) {
-            
-                                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(internEmailInput)
-            
-                            if (valid) {
-                                return true;
-                            } else {
-                                console.log("Please enter a valid email.")
-                                return false;
+                        },
+                        {
+                            type: "input",
+                            name: "engineerGitHub",
+                            message: "What is the employee's GitHub username?",
+                            validate: engineerGitHubInput => {
+                                if (engineerGitHubInput){
+                                    return true;
+                                } else {
+                                    console.log("Please enter GitHub username")
+                                    return false;
+                                }
                             }
-                        }
-                    },
-                    {
-                        type: "input",
-                        name: "internSchool",
-                        message: "Where does the intern go to school?",
-                        validate: internSchoolInput => {
-                            if (internSchoolInput){
-                                return true;
-                            } else {
-                                console.log("Please enter the intern's school information.")
-                                return false;
+                        },
+                    ])
+                }
+                else if (responses.role == 'Intern'){
+                    return inquirer.prompt([
+                        {
+                            type: "input",
+                            name: "internName",
+                            message:"What is the intern's name?",
+                            validate: internNameInput => {
+                                if (internNameInput){
+                                    return true;
+                                } else {
+                                    console.log("Please enter the intern's name")
+                                }
                             }
-                        }
-                    },
-                ])
-            };
-        })
+                        },
+                        {
+                            type: "input",
+                            name: "internId",
+                            message: "What is the intern's employee ID?",
+                            validate: internIdInput => {
+                                if (isNaN(internIdInput)){
+                                    console.log("Please enter a valid number");
+                                } else {
+                                    return true;
+                                }
+                            }
+                        },
+                        {
+                            type: "input",
+                            name: "internEmail",
+                            message: "What is the intern's email address?",
+                            validate: function (internEmailInput) {
+                
+                                    valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(internEmailInput)
+                
+                                if (valid) {
+                                    return true;
+                                } else {
+                                    console.log("Please enter a valid email.")
+                                    return false;
+                                }
+                            }
+                        },
+                        {
+                            type: "input",
+                            name: "internSchool",
+                            message: "Where does the intern go to school?",
+                            validate: internSchoolInput => {
+                                if (internSchoolInput){
+                                    return true;
+                                } else {
+                                    console.log("Please enter the intern's school information.")
+                                    return false;
+                                }
+                            }
+                        },
+                    ])
+                };
+            })    
+        
     };
 
 
