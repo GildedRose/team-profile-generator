@@ -83,88 +83,127 @@ const inquirer = require ('inquirer');
                     }
                 }
             },
-        ]).then(function (responses){
-                if (responses.role = 1){
-                    return inquirer.prompt([
-                        {
-                            type: "input",
-                            name: "nameEngineer",
-                            message:"What is the Engineer's name?",
-                            validate: nameEngineerInput => {
-                                if (nameEngineerInput){
-                                    return true;
-                                } else {
-                                    console.log("Please enter the Engineer's name")
-                                }
+        ])
+        .then(function (responses){
+            if (responses.role == 'Engineer'){
+                return inquirer.prompt([
+                    {
+                        type: "input",
+                        name: "engineerName",
+                        message:"What is the engineer's name?",
+                        validate: engineerNameInput => {
+                            if (engineerNameInput){
+                                return true;
+                            } else {
+                                console.log("Please enter the engineer's name")
                             }
-                        },
-                    ])
-                }
+                        }
+                    },
+                    {
+                        type: "input",
+                        name: "engineerId",
+                        message: "What is the engineer's employee ID?",
+                        validate: engineerIdInput => {
+                            if (isNaN(engineerIdInput)){
+                                console.log("Please enter a valid number");
+                            } else {
+                                return true;
+                            }
+                        }
+                    },
+                    {
+                        type: "input",
+                        name: "engineerEmail",
+                        message: "What is the engineer's email address?",
+                        validate: function (engineerEmailInput) {
+            
+                                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(engineerEmailInput)
+            
+                            if (valid) {
+                                return true;
+                            } else {
+                                console.log("Please enter a valid email.")
+                                return false;
+                            }
+                        }
+                    },
+                    {
+                        type: "input",
+                        name: "engineerGitHub",
+                        message: "What is the employee's GitHub username?",
+                        validate: engineerGitHubInput => {
+                            if (engineerGitHubInput){
+                                return true;
+                            } else {
+                                console.log("Please enter GitHub username")
+                                return false;
+                            }
+                        }
+                    },
+                ])
             }
-        )
+            else if (responses.role == 'Intern'){
+                return inquirer.prompt([
+                    {
+                        type: "input",
+                        name: "internName",
+                        message:"What is the intern's name?",
+                        validate: internNameInput => {
+                            if (internNameInput){
+                                return true;
+                            } else {
+                                console.log("Please enter the intern's name")
+                            }
+                        }
+                    },
+                    {
+                        type: "input",
+                        name: "internId",
+                        message: "What is the intern's employee ID?",
+                        validate: internIdInput => {
+                            if (isNaN(internIdInput)){
+                                console.log("Please enter a valid number");
+                            } else {
+                                return true;
+                            }
+                        }
+                    },
+                    {
+                        type: "input",
+                        name: "internEmail",
+                        message: "What is the intern's email address?",
+                        validate: function (internEmailInput) {
+            
+                                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(internEmailInput)
+            
+                            if (valid) {
+                                return true;
+                            } else {
+                                console.log("Please enter a valid email.")
+                                return false;
+                            }
+                        }
+                    },
+                    {
+                        type: "input",
+                        name: "internSchool",
+                        message: "Where does the intern go to school?",
+                        validate: internSchoolInput => {
+                            if (internSchoolInput){
+                                return true;
+                            } else {
+                                console.log("Please enter the intern's school information.")
+                                return false;
+                            }
+                        }
+                    },
+                ])
+            };
+        })
     };
 
-/*//array of questions for user
-const newEmployee = () => {
-    return inquirer.prompt([
-        {
-            type: 'input',
-            name: 'employeeName',
-            message: "What is the employee's name?",
-            validate: employeeNameInput => {
-                if (employeeNameInput){
-                    return true;
-                } else {
-                    console.log('You need to enter a name')
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'employeeId',
-            message: 'What is the employee ID?',
-        },
-        {
-            type: 'input',
-            name: 'employeeEmail',
-            message: 'What is their e-mail address?'
-        },
 
-    ]);
-};
 
-const engineer = () => {
-    return inquirer.prompt([
-        {
-            type: 'input',
-            name: 'gitHub',
-            message: "What is your GitHub username?",
-        },
-    ])
-};
-
-const intern = () => {
-    return inquirer.prompt([
-        {
-            type: 'input',
-            name: 'school',
-            message: "Where do you go to school?",
-        },
-    ])
-}; */
-
-        
-
-/*newEmployee()
-    .then(roleQuestion)
-        //when: (answers) => answers.roleInput === 'Manager',
-    .then(intern)
-    .then(engineer)
-    .then(manager)
-    .catch(err => {
-        console.log(err);
-    }); */
 
 newManager()
     .then(createTeam);
