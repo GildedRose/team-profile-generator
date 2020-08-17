@@ -80,6 +80,7 @@ const { prompts } = require('inquirer');
                         return true
                     } else {
                         console.log("Please choose yes or no.")
+                        return false;
                     }
                 }
             },
@@ -230,4 +231,15 @@ const { prompts } = require('inquirer');
 
 
 newManager()
-    .then(createTeam);
+    .then(createTeam)
+    .then(function loop (){
+        createTeam().then(function (responses){
+            console.log(responses)
+            if (responses.newEmployee == 'Yes'){
+                return loop;
+            } else {
+                console.log("No more Loop")
+                return false;
+            }
+        })
+    });
