@@ -1,4 +1,8 @@
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 const inquirer = require ('inquirer');
+const fs = require("fs");
 const { prompts } = require('inquirer');
 //const generateHTML = require('./dist/team.html')
 //const { writeFile } = require('./src/generateSite.js')
@@ -59,14 +63,8 @@ const { prompts } = require('inquirer');
                     }
                 }
             },
-        ])
+        ]) 
     };
-        /*.then(answers => {
-            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.OfficeNumber);
-            teamMembers.push(manager);
-            idArray.push(answers.managerId);
-            createTeam(); 
-          }); */
 
     const createTeam = () => {
         return inquirer.prompt([
@@ -232,14 +230,7 @@ const { prompts } = require('inquirer');
 
 newManager()
     .then(createTeam)
-    .then(function loop (){
-        createTeam().then(function (responses){
-            console.log(responses)
-            if (responses.newEmployee == 'Yes'){
-                return loop;
-            } else {
-                console.log("No more Loop")
-                return false;
-            }
-        })
+    .then(function loop(){
+        createTeam().then(loop);
     });
+
