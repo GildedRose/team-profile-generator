@@ -44,15 +44,14 @@ const createTeam = team => {
             <ul class="info-list">
                 <li class="info-item">ID: ${Intern.getId()}</li>
                 <li class="info-item">Email: <a href="mailto:${Intern.getEmail()}>${Intern.getEmail()}</a></li>
-                <li class="info-item">School: ${Intern.getGitHub()}</li>
+                <li class="info-item">School: ${Intern.getSchool()}</li>
             </ul>
         </div>
         </div>
         `;
     };
 
-    /*const html = [];
-
+    const html = [];
     html.push(team
         .filter(Employee => Employee.getRole()==="Manager")
         .map(Manager => createManagerHtml(Manager))
@@ -66,8 +65,10 @@ const createTeam = team => {
         .filter(Employee => Employee.getRole() === "Intern")
         .map(Intern => createInternHtml(Intern))
         .join("")
-        ); */
+        ); 
+        return html.join("");
 }
+
 
 module.exports = team => {
 
