@@ -51,7 +51,7 @@ const createTeam = team => {
         `;
     };
 
-    const html = [];
+    /*const html = [];
 
     html.push(team
         .filter(Employee => Employee.getRole()==="Manager")
@@ -66,7 +66,7 @@ const createTeam = team => {
         .filter(Employee => Employee.getRole() === "Intern")
         .map(Intern => createInternHtml(Intern))
         .join("")
-        );
+        ); */
 }
 
 module.exports = team => {
